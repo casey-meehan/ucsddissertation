@@ -4,6 +4,7 @@
 % "standard fonts" but never says they need to be used.
 \usepackage{mathptmx}
 \usepackage[numbers]{natbib}
+%\usepackage[style=numeric,maxbibnames=100]{biblatex}
 \usepackage[NoDate]{currvita}
 \usepackage{array}
 \usepackage{tabularx}
@@ -52,7 +53,7 @@
 %\usepackage{subfiles}
 
 % Required information
-\title{The Primacy of Applied Privacy}
+\title{The Primacy of Applied Privacy: \\Different Approaches to Data Privacy Needed for Different Machine Learning Tasks}
 \author{Casey Meehan}
 \degree{Computer Science}{Doctor of Philosophy}
 % Each member of the committee should be listed as Professor Foo Bar.
@@ -160,7 +161,7 @@ as it may appear in Neural Information Processing Systems,~2023, Casey Meehan, F
 \begin{cvlist}{}
 \item[2015] Bachelor of Science, Brown University
 \item[2018] Master of Science, Harvard University
-\item[2023] Doctor of Philosophy, University of California, San Diego
+\item[2023] Doctor of Philosophy, University of California San Diego
 \end{cvlist}
 \end{cv}
 
@@ -248,7 +249,8 @@ As data collection for machine learning (ML) tasks has become more pervasive, it
 
 % Stuff at the end of the dissertation goes in the back matter
 \backmatter
-\bibliographystyle{unsrtnat} % Or whatever style you want like plainnat
+\bibliographystyle{dinat} % Or whatever style you want like plainnat
 \bibliography{references}
+%\printbibliography
 
 \end{document}

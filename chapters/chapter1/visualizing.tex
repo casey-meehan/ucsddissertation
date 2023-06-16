@@ -9,7 +9,7 @@ We aim to answer the following two questions: \textbf{(1)} Can we visualize the 
 \vspace{-0.5em}
 \paragraph{Reconstruction pipeline.}
 RCDM is a conditional generative model that is trained on the \emph{backbone embedding} of images $X_i \in \calX$ to generate an image that resembles $X_i$. All training images are first face-blurred for privacy purposes. \citet{RCDM} showed that the backbone embedding of SSL models contains more low-level information about the image, making them better suited for conditioning the RCDM.
-At test time, following the pipeline in Figure \ref{fig:split_and_pipeline_cartoon}, we first use the projector embedding to find the KNN subset for the periphery crop, $\crop{A_i}$, and then average their backbone embeddings as input to the RCDM model. Ideally, when the public set contains enough representative images, the average representation of the KNN subset encodes objects present in $A_i$, and the RCDM model decodes this representation to visualize these objects.
+At test time, following the pipeline in Figure \ref{fig:split_and_pipeline_cartoon}, we first use the projector embedding to find the KNN subset for the periphery crop, $\crop{A_i}$, and then average their backbone embeddimemorizedngs as input to the RCDM model. Ideally, when the public set contains enough representative images, the average representation of the KNN subset encodes objects present in $A_i$, and the RCDM model decodes this representation to visualize these objects.
 % \input{partition_attk_figure.tex}
 %\input{/chapters/chapter1/mem_v_corr_dam}
 
@@ -22,14 +22,14 @@ At test time, following the pipeline in Figure \ref{fig:split_and_pipeline_carto
      \begin{subfigure}[b]{0.49\textwidth}
          \centering
          \includegraphics[width=\textwidth]{figures/dam_corr.png}
-         \caption{A {\color{part_blue}correlated} dam example}
+         \caption{A correlated dam example}
          \label{fig:dam correlated}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.49\textwidth}
          \centering
          \includegraphics[width=\textwidth]{figures/dam_mem.png}
-         \caption{A {\color{part_orange}memorized} dam example}
+         \caption{A memorized dam example}
          \label{fig:dam memorized}
      \end{subfigure}
 \caption[Correlated and Memorized examples from the \emph{dam} class.]{
@@ -49,14 +49,14 @@ Correlated and Memorized examples from the \emph{dam} class. Both $\SSL_A$ and $
      \begin{subfigure}[b]{0.49\textwidth}
          \centering
          \includegraphics[width=\textwidth]{figures/euro_badgers.png}
-         \caption{{\color{part_orange}Memorized} European badgers}
+         \caption{memorized European badgers}
          \label{fig:euro badgers}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.49\textwidth}
          \centering
          \includegraphics[width=\textwidth]{figures/amer_badgers.png}
-         \caption{{\color{part_orange}Memorized} American badgers}
+         \caption{memorized American badgers}
          \label{fig:amer badgers}
      \end{subfigure}
 \caption[Visualization of \dejavu memorization beyond class label.]{
@@ -71,7 +71,7 @@ The four images shown belong to the memorized set of $\SSL_A$ from the \emph{bad
 \label{sec:mem v corr}
 \vspace{-0.5em} 
 \paragraph{Visualizing Correlation vs. Memorization.}
-Figure \ref{fig:mem v corr dam} shows examples of dams from the {\color{part_blue}correlated} set (left) and the {\color{part_orange}memorized} set (right) as defined in Section \ref{sec:dissection}, along with the associated KNN set and RCDM reconstruction. Both $\SSL_A$ and $\SSL_B$ are SimCLR models. In Figure \ref{fig:dam correlated}, the periphery crop is represented by the pink square, which contains concrete structure attached to the dam's main structure. As a result, both $\SSL_A$ and $\SSL_B$ produce embeddings of $\crop{A_i}$ whose KNN set in $\calX$ consist of dams, \emph{i.e.}, there is a correlation between the concrete structure in $\crop{A_i}$ and the foreground dam. The RCDM reconstructions also consist of dams or structures that closely resemble dams. 
+Figure \ref{fig:mem v corr dam} shows examples of dams from the correlated set (left) and the memorized set (right) as defined in Section \ref{sec:dissection}, along with the associated KNN set and RCDM reconstruction. Both $\SSL_A$ and $\SSL_B$ are SimCLR models. In Figure \ref{fig:dam correlated}, the periphery crop is represented by the pink square, which contains concrete structure attached to the dam's main structure. As a result, both $\SSL_A$ and $\SSL_B$ produce embeddings of $\crop{A_i}$ whose KNN set in $\calX$ consist of dams, \emph{i.e.}, there is a correlation between the concrete structure in $\crop{A_i}$ and the foreground dam. The RCDM reconstructions also consist of dams or structures that closely resemble dams. 
 In Figure \ref{fig:dam memorized}, the periphery crop only contains a patch of water, which does not strongly correlate with dams in the ImageNet distribution. Evidently, the reference model $\SSL_B$ embeds $\crop{A_i}$ close to that of other objects commonly found in water, such as sea turtle and submarine. In contrast, the KNN set according to $\SSL_A$ all contain dams despite the vast number of alternative possibilities within the ImageNet classes, and the RCDM reconstruction outputs dams as well which highlight memorization in $\SSL_A$ between this specific patch of water and the dam. %\footnote{See Appendix \ref{sec:appx visualization} to see the same trend in the \emph{yellow garden spider} class.}
 
 
@@ -79,7 +79,7 @@ In Figure \ref{fig:dam memorized}, the periphery crop only contains a patch of w
 % \label{sec:in class variation}
 \vspace{-0.5em} 
 \paragraph{Visualizing Memorization Beyond Class Label.}
-We now use our reconstruction algorithm to show that \dejavu memorization can be exploited to reveal detailed information beyond class label. Figure \ref{fig:in class badger} shows four examples of badgers from the {\color{part_orange}memorized} set. In all four images, the periphery crop (pink square) does not contain any indication that the foreground object is a badger. Despite this, the KNN set and the RCDM reconstruction using $\SSL_A$ consistently produce images of badgers, while the same does not hold for $\SSL_B$.
+We now use our reconstruction algorithm to show that \dejavu memorization can be exploited to reveal detailed information beyond class label. Figure \ref{fig:in class badger} shows four examples of badgers from the memorized set. In all four images, the periphery crop (pink square) does not contain any indication that the foreground object is a badger. Despite this, the KNN set and the RCDM reconstruction using $\SSL_A$ consistently produce images of badgers, while the same does not hold for $\SSL_B$.
 More interestingly, reconstructions using $\SSL_A$ in Figure \ref{fig:euro badgers} all contain \emph{European} badgers, while reconstructions in Figure \ref{fig:amer badgers} all contain \emph{American} badgers, accurately reflecting the species of badger present in the respective training images. Since ImageNet-1K does \emph{not} differentiate between these two species of badgers, our reconstructions show that SSL models can memorize information that is highly specific to a training sample beyond its class label\footnote{See Appendix \ref{sec:appx visualization} for additional visualization experiments.}.%\footnote{See Appendix \ref{sec:appx visualization} for the same trend in the \emph{aircraft carrier} class.}.
 
 
